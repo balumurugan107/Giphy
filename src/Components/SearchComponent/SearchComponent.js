@@ -7,6 +7,7 @@ import {
     Gif
   } from "@giphy/react-components";
   import GiphyLogo from "../../assets/giphy.svg";
+  import {GIPHY_API_KEY} from "../../Constant.js";
 
 function SearchComponent() {
 const [message,setMessage] = useState();
@@ -15,7 +16,9 @@ const [shareShow, setShareShow] = useState(false);
 const [searchTerm,setSearchTerm] = useState();
 const [render,setRender] = useState();
 
-const giphyFetch = new GiphyFetch("sXpGFDGZs0Dv1mmNFvYaGUvYwKX0PWIh");
+// fetching data from api
+
+const giphyFetch = new GiphyFetch(GIPHY_API_KEY);
 
 function CarouselDemo() {
     const fetchGifs = (offset) =>
@@ -28,16 +31,11 @@ function CarouselDemo() {
     }}/>;
   }
 
+// to render again when length of message array changes
+
 useEffect(() => {
     setMessagesArr(messagesArr);
 }, [messagesArr.length]);
-
-function isValidURL(string) {
-    var res = string.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g);
-    return (res !== null)
-  };
-
-
 
   return <Container maxWidth="md" className='searchGiphy'>
       <img src={GiphyLogo} alt="giphyLogo" className='giphyLogo'/>
@@ -48,7 +46,7 @@ function isValidURL(string) {
           <Grid item xs={2}>
           <div style={{position:"relative"}}>
           <Button variant="outlined" color='secondary' onClick={() =>{
-              setShareShow(shareShow == true ? false : true);
+              setShareShow(shareShow === true ? false : true);
           }}>
               Gif</Button>
               <Tooltip
@@ -70,11 +68,16 @@ function isValidURL(string) {
           }}>Post</Button>
           </Grid>
       </Grid>
+
+    {/* mapping messages array */}
+
       {
           messagesArr.length > 0 ?
-          messagesArr.map((singleMessage) =>{
+          messagesArr.map((singleMessage,i) =>{
               if(typeof(singleMessage) == "object"){
-                  return (<Gif gif={singleMessage} width={300} style={{marginBottom : "20px"}} noLink/>);
+                  return (<>
+                  <Gif gif={singleMessage} width={300} style={{marginBottom : "20px"}} noLink/>
+                  </>);
               }else
               return <p>{singleMessage}</p>;
           }).reverse() :
