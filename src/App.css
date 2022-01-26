@@ -1,0 +1,16 @@
+.rpt-textbox-container{
+ width: 250px !important;
+}
+
+.searchGiphy{
+    padding-block: 40px;
+}
+
+.textField input{
+    height:100px;
+}
+
+.giphyLogo{
+    width: 200px;
+    margin-bottom: 20px;
+}

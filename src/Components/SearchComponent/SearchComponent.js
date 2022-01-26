@@ -9,6 +9,7 @@ import {
     Video,
     VideoOverlay
   } from "@giphy/react-components";
+  import GiphyLogo from "../../assets/giphy.svg";
 
 function SearchComponent() {
 const [message,setMessage] = useState();
@@ -41,20 +42,15 @@ function isValidURL(string) {
 
 
 
-  return <Container maxWidth="sm">
-      <Grid id="top-row" container spacing={24}>
-          <Grid item xs={4}>
-          <TextField id="outlined-basic" fullWidth placeholder="Write Something" variant="outlined" value={message} onChange={(e) => setMessage(e.target.value) } autoComplete='off'/>
+  return <Container maxWidth="md" className='searchGiphy'>
+      <img src={GiphyLogo} alt="giphyLogo" className='giphyLogo'/>
+      <Grid id="top-row" container spacing={4} style={{marginBottom : "25px"}} >
+          <Grid item xs={8}>
+          <TextField id="outlined-basic" className="textField" fullWidth placeholder="Write Something" variant="outlined" value={message} onChange={(e) => setMessage(e.target.value) } autoComplete='off' multiline rows={4}/>
           </Grid>
-          <Grid item xs={4} >
-          <Button variant="contained" onClick={() => {
-              messagesArr.push(message);
-              setMessagesArr(messagesArr);
-              setMessage("");
-          }}>Post</Button>
-          </Grid>
-          <Grid item xs={4}>
-          <Button variant="contained" onClick={() =>{
+          <Grid item xs={2}>
+          <div style={{position:"relative"}}>
+          <Button variant="outlined" color='secondary' onClick={() =>{
               setShareShow(shareShow == true ? false : true);
           }}>
               Gif</Button>
@@ -67,16 +63,24 @@ function isValidURL(string) {
                     <TextField id="outlined-basic" placeholder="search gif" variant="outlined" onChange={(e) => setSearchTerm(e.target.value) }/>
                     <CarouselDemo />
                 </Tooltip>
+                </div>
+          </Grid>
+          <Grid item xs={2} >
+          <Button variant="contained" onClick={() => {
+              messagesArr.push(message);
+              setMessagesArr(messagesArr);
+              setMessage("");
+          }}>Post</Button>
           </Grid>
       </Grid>
       {
           messagesArr.length > 0 ?
           messagesArr.map((singleMessage) =>{
               if(typeof(singleMessage) == "object"){
-                  return (<Gif gif={singleMessage} />);
+                  return (<Gif gif={singleMessage} width={300} style={{marginBottom : "20px"}} noLink/>);
               }else
               return <p>{singleMessage}</p>;
-          }) :
+          }).reverse() :
           <p>No message available!</p>
       }
   </Container>;
