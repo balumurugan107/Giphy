@@ -1,13 +1,10 @@
 import React,{useState,useEffect} from 'react';
-import { GiphyFetch } from "@giphy/js-fetch-api";
-// import { IGif } from "@giphy/js-types"; 
+import { GiphyFetch } from "@giphy/js-fetch-api"; 
 import { TextField,Button,Grid,Container } from '@mui/material';
 import Tooltip from "react-power-tooltip";
 import {
     Carousel,
-    Gif,
-    Video,
-    VideoOverlay
+    Gif
   } from "@giphy/react-components";
   import GiphyLogo from "../../assets/giphy.svg";
 
